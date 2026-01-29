@@ -52,19 +52,21 @@ namespace RGB_img
             {
                 for (int y = 0; y < Columns; y++)
                 {
-                    Pixel p = image.Pixels[y, x];
+                    Pixel p = image.Pixels[x, y]; //[y, x] -> [x, y]
 
                     var rect = new Rectangle
                     {
                         Width = CellSize,
                         Height = CellSize,
                         Fill = new SolidColorBrush(
-                            Color.FromArgb(p.R, p.G, p.B))
+                        Color.FromRgb((byte)p.R, (byte)p.G, (byte)p.B))
+                        //Color.FromAgb -> Color.FromRgb
+                        //byteba valtas
 
                     };
 
-                    Canvas.SetLeft(rect, x * CellSize);
-                    Canvas.SetTop(rect, y * CellSize);
+                    Canvas.SetLeft(rect, y * CellSize); //x -> y
+                    Canvas.SetTop(rect, x * CellSize); //y -> x
 
                     MainCanvas.Children.Add(rect);
                 }

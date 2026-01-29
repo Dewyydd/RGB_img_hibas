@@ -24,22 +24,22 @@ namespace RGB_img.Models
         {
             string[] lines = File.ReadAllLines(filePath);
 
-            if (lines.Length != Width)
+            if (lines.Length != Height) //Width -> Height
                 throw new Exception("Hibás sorszám a fájlban.");
 
             for (int y = 0; y < Height; y++)
             {
-                string[] values = lines[y].Split(';');
+                string[] values = lines[y].Split(' '); //';' -> ' '
 
                 if (values.Length != Width * 3)
                     throw new Exception($"Hibás adatszám a(z) {y}. sorban.");
 
-                int index = 0;
+                int index = 0; //index++ a for-ban
                 for (int x = 0; x < Width; x++)
                 {
-                    byte r = byte.Parse(values[index]);
-                    byte g = byte.Parse(values[index]);
-                    byte b = byte.Parse(values[index]);
+                    byte r = byte.Parse(values[index++]);
+                    byte g = byte.Parse(values[index++]);
+                    byte b = byte.Parse(values[index++]);
 
                     Pixels[y, x] = new Pixel(r, g, b);
                 }
